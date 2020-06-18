@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\HttpController;
+namespace App\HttpController\Api;
 
 
 use EasySwoole\Http\AbstractInterface\Controller;
