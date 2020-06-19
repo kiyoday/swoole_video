@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+
+  es:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 9501:9501
+    networks:
+      - backend
+    volumes:
+      - ./es/easyswoole:/easyswoole:rw
+    tty: true
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3307:3306
+    networks:
+      - backend
+    volumes:
+      - ./db/data/mysql:/var/lib/mysql:rw
+
+  redis:
+    image: daocloud.io/library/redis
+    ports:
+      - 6379:6379
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - ./db/redis/:/data
+

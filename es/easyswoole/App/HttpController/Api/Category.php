@@ -28,4 +28,7 @@ class Category extends BaseController
         );
         $this->writeJson(200,$data,'这个是成功消息');
     }
+    public function index(){
+
+    }
 }

@@ -7,7 +7,7 @@ ENV EASYSWOOLE_VERSION 3.x-dev
 #install libs
 RUN yum install -y curl zip unzip  wget openssl-devel gcc-c++ make autoconf
 #install php
-RUN yum install -y php-devel php-openssl php-mbstring php-json
+RUN yum install -y php-devel php-mysqli php-openssl php-mbstring php-json
 # composer
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer
@@ -35,5 +35,21 @@ WORKDIR /easyswoole
 RUN cd /easyswoole \
     && composer require easyswoole/easyswoole=${EASYSWOOLE_VERSION} \
     && php vendor/bin/easyswoole install
+
+# install phpredis
+RUN wget https://github.com/phpredis/phpredis/archive/3.1.4.tar.gz -O redis.tar.gz \
+    && mkdir -p redis \
+    && tar -xf redis.tar.gz -C redis --strip-components=1 \
+    && rm redis.tar.gz \
+    && ( \
+    cd redis \
+    && phpize  \
+    && ./configure --with-php-config=php-config \
+    && make \
+    && make install \
+    ) \
+    && sed -i "2i extension=redis.so" /etc/php.ini \
+    && rm -r redis
+
 
 EXPOSE 9501

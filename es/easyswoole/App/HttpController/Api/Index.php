@@ -4,10 +4,17 @@
 namespace App\HttpController\Api;
 
 
+use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
 
 class Index extends Controller
 {
+
+    public function getVideo(){
+        $db = Di::getInstance()->get("MYSQL");
+        $result = $db->where("id", 1)->getOne("video");
+        return $this->writeJson(200, 'OK', $result);
+    }
 
     public function index()
     {

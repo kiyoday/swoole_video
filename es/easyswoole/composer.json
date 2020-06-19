@@ -1,7 +1,8 @@
 {
     "require": {
         "easyswoole/easyswoole": "3.x-dev",
-        "easyswoole/mysqli": "^2.2"
+        "easyswoole/mysqli": "^2.2",
+        "joshcam/mysqli-database-class": "dev-master"
     },
     "autoload": {
         "psr-4": {
