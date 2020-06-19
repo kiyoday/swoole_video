@@ -17,6 +17,7 @@ return array(
     'EasySwoole\\Socket\\' => array($vendorDir . '/easyswoole/socket/src'),
     'EasySwoole\\Session\\Test\\' => array($vendorDir . '/easyswoole/session/tests'),
     'EasySwoole\\Session\\' => array($vendorDir . '/easyswoole/session/src'),
+    'EasySwoole\\Redis\\' => array($vendorDir . '/easyswoole/redis/src'),
     'EasySwoole\\Mysqli\\Tests\\' => array($vendorDir . '/easyswoole/mysqli/tests'),
     'EasySwoole\\Mysqli\\' => array($vendorDir . '/easyswoole/mysqli/src'),
     'EasySwoole\\Log\\' => array($vendorDir . '/easyswoole/log/src'),

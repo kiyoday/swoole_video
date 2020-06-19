@@ -1,32 +1,15 @@
 <?php
 
 
-namespace App\HttpController\Api;
+namespace App\HttpController;
 
 
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
-use EasySwoole\Redis\Config\RedisConfig;
-use EasySwoole\Redis\Redis;
 
 class Index extends Controller
 {
 
-    public function getVideo(){
-        $db = Di::getInstance()->get("MYSQL");
-        $result = $db->where("id", 1)->getOne("video");
-        return $this->writeJson(200, 'OK', $result);
-    }
-    public function getRedis(){
-        $redis = new Redis(new RedisConfig([
-        'host' => 'redis',
-        'port' => '6379',
-        'serialize' => RedisConfig::SERIALIZE_NONE
-        ]));
-        $redis->set("key",'value');
-        $result = $redis->get('key');
-        return $this->writeJson(200, 'OK', $result);
-    }
 
     public function index()
     {

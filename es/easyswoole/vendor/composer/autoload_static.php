@@ -36,6 +36,7 @@ class ComposerStaticInit93ec1d47372a526badc627b199ab7e1a
             'EasySwoole\\Socket\\' => 18,
             'EasySwoole\\Session\\Test\\' => 24,
             'EasySwoole\\Session\\' => 19,
+            'EasySwoole\\Redis\\' => 17,
             'EasySwoole\\Mysqli\\Tests\\' => 24,
             'EasySwoole\\Mysqli\\' => 18,
             'EasySwoole\\Log\\' => 15,
@@ -103,6 +104,10 @@ class ComposerStaticInit93ec1d47372a526badc627b199ab7e1a
         array (
             0 => __DIR__ . '/..' . '/easyswoole/session/src',
         ),
+        'EasySwoole\\Redis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/redis/src',
+        ),
         'EasySwoole\\Mysqli\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/easyswoole/mysqli/tests',
@@ -162,6 +167,7 @@ class ComposerStaticInit93ec1d47372a526badc627b199ab7e1a
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit93ec1d47372a526badc627b199ab7e1a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit93ec1d47372a526badc627b199ab7e1a::$prefixDirsPsr4;
+
         }, null, ClassLoader::class);
     }
 }
