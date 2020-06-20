@@ -2,6 +2,7 @@
 namespace EasySwoole\EasySwoole;
 
 
+use App\lib\Redis\Redis;
 use EasySwoole\Component\Di;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
@@ -29,6 +30,7 @@ class EasySwooleEvent implements Event
             'port' => 3306,
             'charset' => 'utf8')
         );
+        Di::getInstance()->set('REDIS',Redis::getInstance());
     }
 
     public static function onRequest(Request $request, Response $response): bool

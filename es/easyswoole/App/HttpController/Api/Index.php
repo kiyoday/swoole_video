@@ -4,10 +4,9 @@
 namespace App\HttpController\Api;
 
 
+use App\lib\Redis\Redis;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
-use EasySwoole\Redis\Config\RedisConfig;
-use EasySwoole\Redis\Redis;
 
 class Index extends Controller
 {
@@ -18,12 +17,9 @@ class Index extends Controller
         return $this->writeJson(200, 'OK', $result);
     }
     public function getRedis(){
-        $redis = new Redis(new RedisConfig([
-        'host' => 'redis',
-        'port' => '6379',
-        'serialize' => RedisConfig::SERIALIZE_NONE
-        ]));
-        $redis->set("key",'value');
+//        $redis->set("key",'value');
+//        $result = $redis->get('key');
+        $redis = Di::getInstance()->get("REDIS");
         $result = $redis->get('key');
         return $this->writeJson(200, 'OK', $result);
     }

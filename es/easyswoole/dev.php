@@ -19,5 +19,10 @@ return [
         ]
     ],
     'TEMP_DIR' => '/tmp',
-    'LOG_DIR' => '/log'
+    'LOG_DIR' => '/log',
+    'REDIS'=>[
+        'host' => 'redis',
+        'port' => '6379',
+        'time_out' => 3,
+    ],
 ];
