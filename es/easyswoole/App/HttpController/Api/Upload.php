@@ -10,6 +10,9 @@ class Upload extends BaseController
     public function file(){
         $request = $this->request();
         $files = $request->getSwooleRequest()->files;
+        if(empty($files)){
+            return $this->writeJson(400,"上传文件为空",[]);
+        }
         $types = array_keys($files);
         $type = $types[0];
         try{
