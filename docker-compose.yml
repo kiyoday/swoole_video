@@ -40,3 +40,28 @@ services:
     volumes:
       - ./db/redis/:/data
 
+  nginx:
+    image: nginx
+    restart: always
+    depends_on:
+      - es
+    ports:
+        - 8080:80
+    networks:
+        - backend
+    volumes:
+      - ./es/easyswoole:/easyswoole:rw
+      - ./conf/conf.d:/etc/nginx/conf.d:rw
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf:rw
+
+  frontdev:
+    build:
+      context: ./
+      dockerfile: NodeDockerfile
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - ./es/easyswoole:/easyswoole:rw
+      - ./front:/front:rw
+    tty: true
