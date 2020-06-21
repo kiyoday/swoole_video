@@ -27,4 +27,9 @@ return [
         'port' => '6379',
         'time_out' => 3,
     ],
+    'STATUS'=>[
+        'normal'=>1,
+        'auditing'=>0,
+        'delete'=>2
+    ],
 ];
