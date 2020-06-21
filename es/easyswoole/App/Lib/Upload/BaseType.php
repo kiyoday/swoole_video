@@ -6,18 +6,23 @@ namespace App\Lib\Upload;
 use App\Lib\Utils;
 use EasySwoole\Http\Request;
 
-class Base
+class BaseType
 {
     //上传文件的 file - key
     public $type = '';
     private $ClientMediaType;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request,$type = null)
     {
         $this->request = $request;
-        $files = $this->request->getSwooleRequest()->files;
-        $types = array_keys($files);
-        $this->type = $types[0];
+        if(empty($type)){
+            $files = $this->request->getSwooleRequest()->files;
+            $types = array_keys($files);
+            $this->type = $types[0];
+        }else{
+            $this->type = $type;
+        }
+
 
     }
 

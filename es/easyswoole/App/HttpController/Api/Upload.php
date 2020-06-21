@@ -3,15 +3,20 @@
 
 namespace App\HttpController\Api;
 
-use App\lib\Upload\Video;
+use App\Lib\ClassArr;
 
 class Upload extends BaseController
 {
     public function file(){
         $request = $this->request();
+        $files = $request->getSwooleRequest()->files;
+        $types = array_keys($files);
+        $type = $types[0];
         try{
-            $obj = new Video($request);
-            $file = $obj->upload();
+            $classObj = new ClassArr();
+            $classStats = $classObj->uploadClassStat();
+            $uploadObj = $classObj->initClass($type,$classStats,[$request,$type]);
+            $file = $uploadObj->upload();
         }catch (\Exception $e){
             return $this->writeJson(400,$e->getMessage(),[]);
         }

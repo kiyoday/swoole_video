@@ -1,7 +1,7 @@
 <?php
 namespace App\Lib\Upload;
 
-class Video extends Base
+class Video extends BaseType
 {
     public $fileType = 'video';
 
@@ -11,6 +11,5 @@ class Video extends Base
         'mp4',
         'x-flv',
     ];
-
 
 }
