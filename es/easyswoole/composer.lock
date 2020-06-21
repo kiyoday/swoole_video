@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac1d649b44a55a9bf4ce68bb967a597b",
+    "content-hash": "2139b0dbcecbcd2f5c80826ab104c6a7",
     "packages": [
         {
             "name": "dragonmantank/cron-expression",
@@ -870,6 +870,59 @@
             ],
             "description": "easyswoole extension tool library",
             "time": "2020-05-19T03:06:24+00:00"
+        },
+        {
+            "name": "easyswoole/validate",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easy-swoole/validate.git",
+                "reference": "af31194d76636077ef455e0f7e80518ce6fcf83d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easy-swoole/validate/zipball/af31194d76636077ef455e0f7e80518ce6fcf83d",
+                "reference": "af31194d76636077ef455e0f7e80518ce6fcf83d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "easyswoole/spl": "^1.0",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EasySwoole\\Validate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "YF",
+                    "email": "291323003@qq.com"
+                }
+            ],
+            "description": "An efficient swoole framework",
+            "homepage": "https://www.easyswoole.com/",
+            "keywords": [
+                "async",
+                "easyswoole",
+                "framework",
+                "swoole"
+            ],
+            "time": "2020-04-29T01:30:45+00:00"
         },
         {
             "name": "joshcam/mysqli-database-class",

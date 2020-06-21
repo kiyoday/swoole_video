@@ -8,6 +8,8 @@ ENV EASYSWOOLE_VERSION 3.x-dev
 RUN yum install -y curl zip unzip  wget openssl-devel gcc-c++ make autoconf
 #install php
 RUN yum install -y php-devel php-mysqli php-openssl php-mbstring php-json
+# install git
+#RUN yum install -y  git
 # composer
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer
@@ -28,6 +30,19 @@ RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz 
     ) \
     && sed -i "2i extension=swoole.so" /etc/php.ini \
     && rm -r swoole
+
+# xdebug ext
+#RUN git clone git://github.com/xdebug/xdebug.git \
+#    && mkdir -p xdebug \
+#    && ( \
+#    cd xdebug \
+#    && phpize \
+#    && ./configure --enable-xdebug \
+#    && make \
+#    && make install \
+#    ) \
+#    && sed -i "2i extension=xdebug.so" /etc/php.ini \
+#    && rm -r xdebug
 
 # Dir
 WORKDIR /easyswoole

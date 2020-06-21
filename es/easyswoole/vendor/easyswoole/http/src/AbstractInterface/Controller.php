@@ -55,6 +55,10 @@ abstract class Controller
             }
         }
     }
+    protected function validate(Validate $validate)
+    {
+        return $validate->validate($this->request()->getRequestParam());
+    }
 
     protected function getAllowMethodReflections()
     {
