@@ -10,7 +10,9 @@ return [
         'SETTING' => [
             'worker_num' => 8,
             'reload_async' => true,
-            'max_wait_time'=>3
+            'max_wait_time'=>3,
+            'buffer_output_size' => 100 * 1024 * 1024,
+            'package_max_length' => 100 * 1024 * 1024,
         ],
         'TASK'=>[
             'workerNum'=>4,
