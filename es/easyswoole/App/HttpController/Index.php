@@ -4,6 +4,7 @@
 namespace App\HttpController;
 
 
+use App\Lib\AliyunSdk\AliVod;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
 
@@ -23,6 +24,13 @@ class Index extends Controller
     function test()
     {
         $this->response()->write('this is test');
+    }
+
+    function testAli()
+    {
+        $obj = new AliVod();
+        $title = "etststs";
+        $obj->create_upload_video();
     }
 
     protected function actionNotFound(?string $action)

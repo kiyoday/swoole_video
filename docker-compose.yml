@@ -59,6 +59,8 @@ services:
       context: ./
       dockerfile: NodeDockerfile
     restart: always
+    ports:
+        - 8089:8080
     networks:
       - backend
     volumes:

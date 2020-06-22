@@ -4,6 +4,7 @@
 namespace App\HttpController\Api;
 
 
+use App\Lib\AliyunSdk\AliVod;
 use App\lib\Redis\Redis;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
@@ -46,5 +47,14 @@ class Index extends Controller
             $file = EASYSWOOLE_ROOT.'/src/Resource/Http/404.html';
         }
         $this->response()->write(file_get_contents($file));
+    }
+    public function testAli(){
+        $obj = new AliVod();
+        $title = "thisTitle";
+        $videoName = '1.mp4';
+        $result = $obj->create_upload_video($title,$videoName);
+        print_r(json_decode(base64_decode($result->videoName,true)));
+        print_r(json_decode(base64_decode($result->UploadAddress,true)));
+        print_r(json_decode(base64_decode($result->UploadAuth,true)));
     }
 }

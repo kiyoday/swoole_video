@@ -7,7 +7,7 @@ ENV EASYSWOOLE_VERSION 3.x-dev
 #install libs
 RUN yum install -y curl zip unzip  wget openssl-devel gcc-c++ make autoconf
 #install php
-RUN yum install -y php-devel php-mysqli php-openssl php-mbstring php-json
+RUN yum install -y php-devel php-mysqli php-openssl php-mbstring php-json php-simplexml
 # install git
 #RUN yum install -y  git
 # composer

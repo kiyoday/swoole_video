@@ -21,7 +21,7 @@ class Video extends BaseController
         //Todo 校验封装
         $Validate = new Validate();
         $Validate->addColumn('name', 'name错误')
-            ->required('名字不为空')->lengthMin(10,'最小长度不小于10位');
+            ->required('名字不为空')->lengthMax(10,'最小长度不小于10位');
         $Validate->addColumn('url', 'url错误')
             ->required('名字不为空')->url('url格式');
         $Validate->addColumn('image', 'image错误')
