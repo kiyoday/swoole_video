@@ -48,13 +48,20 @@ class Index extends Controller
         }
         $this->response()->write(file_get_contents($file));
     }
+
     public function testAli(){
         $obj = new AliVod();
-        $title = "thisTitle";
-        $videoName = '1.mp4';
+        $title = "testVideo";
+        $videoName = 'testvideo111.mp4';
         $result = $obj->create_upload_video($title,$videoName);
-        print_r(json_decode(base64_decode($result->videoName,true)));
-        print_r(json_decode(base64_decode($result->UploadAddress,true)));
-        print_r(json_decode(base64_decode($result->UploadAuth,true)));
+//        $videoName =json_decode(base64_decode($result->videoName,true));
+        $uploadAddress = (array)json_decode(base64_decode($result->UploadAddress,true));
+        $uploadAuth = (array)json_decode(base64_decode($result->UploadAuth,true));
+
+        $obj->initOssClient($uploadAuth, $uploadAddress);
+
+        $videoFile= '/easyswoole/webroot/testvideo111.mp4';
+        $result = $obj->upload_local_file($uploadAddress, $videoFile);
+        print_r($result);
     }
 }

@@ -44,7 +44,7 @@ class AliVod{
     }
 
     //使用上传凭证和地址初始化OSS客户端（注意需要先Base64解码并Json Decode再传入）
-    function init_oss_client($uploadAuth, $uploadAddress) {
+    function initOssClient($uploadAuth, $uploadAddress) {
         $this->ossClient = new OssClient($uploadAuth['AccessKeyId']
             , $uploadAuth['AccessKeySecret']
             , $uploadAddress['Endpoint']
