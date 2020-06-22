@@ -9,14 +9,34 @@ use App\lib\Redis\Redis;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
 use App\Model\Video as videoModel;
+use EasySwoole\Http\Message\Status;
 
-class Index extends Controller
+class Index extends BaseController
 {
     public function lists(){
-        $params = $this->request()->getRequestParam();
+        //写入baseController作为公共处理
+//        $params = $this->request()->getRequestParam();
+//        $page = $params['page']??1;
+//        $size = $params['size']??5;
+        $page = $this->params['page'];
+        $size = $this->params['size'];
+        try {
+            $videoModel = new videoModel();
+            $data = $videoModel->getVideoData([],$page,$size);
+        }catch (\Exception $e){
+            return $this->writeJson(Status::CODE_BAD_REQUEST
+                ,'error',$e->getMessage());
+        }
 
-        $videoModel = new videoModel();
-        $videoModel->getVideoData([],1,2);
+        if (empty($data['lists'])){
+            foreach ($data['lists'] as &$list) {
+                $list['create_time'] = date("Ymd H:i:s",$list['create_time']);
+                //tips: 转为合适时间格式 "%H:%M:%S"
+                $list['video_duration'] = gmstrftime("%M:%S", $list['video_duration']);
+            }
+        }
+        return $this->writeJson(Status::CODE_OK,'OK',$data);
+
     }
 
     public function getVideo(){
@@ -30,6 +50,7 @@ class Index extends Controller
         $result = $db->where("id", 1)->getOne("video");
         return $this->writeJson(200, 'OK', $result);
     }
+
     public function getRedis(){
 //        $redis->set("key",'value');
 //        $result = $redis->get('key');

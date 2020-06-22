@@ -45,7 +45,7 @@ class Video extends BaseController
             'content'=>$params['content'],
             'cat_id'=>intval($params['cat_id']),
             'create_time'=>time(),
-            'uploader' => 'kiyo',
+            'uploader' => 'kiyo',//TODO 登录注册
             'status'=>$status['normal']
         ];
         print_r($data);
