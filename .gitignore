@@ -1,7 +1,9 @@
+es/easyswoole/produce.php
 /.idea
 /es/easyswoole/vendor
 /es/easyswoole/webroot
 /db
 /front
+
 /es/easyswoole/App/Lib/AliyunSdk/*
 !/es/easyswoole/App/Lib/AliyunSdk/AliVod.php
