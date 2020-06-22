@@ -5,6 +5,7 @@ namespace App\Lib\AliyunSdk;
 require_once EASYSWOOLE_ROOT.'/App/Lib/AliyunSdk/aliyun-php-sdk-core/Config.php';   // 假定您的源码文件和aliyun-php-sdk处于同一目录。
 require_once EASYSWOOLE_ROOT.'/App/Lib/AliyunSdk/aliyun-oss-php-sdk-master/autoload.php';
 
+use DefaultAcsClient;
 use EasySwoole\EasySwoole\Config;
 use vod\Request\V20170321 as vod;
 use OSS\OssClient;
@@ -56,10 +57,22 @@ class AliVod{
     }
 
     //上传本地文件
-    function upload_local_file($uploadAddress, $localFile) {
+    public function upload_local_file($uploadAddress, $localFile) {
         return $this->ossClient->uploadFile($uploadAddress['Bucket']
                                             , $uploadAddress['FileName']
                                             , $localFile);
+    }
+
+    //获取上传后的视频信息
+    public function getPlayInfo($videoId = 0){
+        if(empty($videoId)){
+            return [];
+        }
+        $request =  new vod\GetPlayInfoRequest();
+        $request->setVideoId($videoId);
+        $request->setAcceptFormat("JSON");
+
+        return $this->client->getAcsResponse($request);
     }
 
 }

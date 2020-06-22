@@ -8,11 +8,24 @@ use App\Lib\AliyunSdk\AliVod;
 use App\lib\Redis\Redis;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
+use App\Model\Video as videoModel;
 
 class Index extends Controller
 {
+    public function lists(){
+        $params = $this->request()->getRequestParam();
+
+        $videoModel = new videoModel();
+        $videoModel->getVideoData([],1,2);
+    }
 
     public function getVideo(){
+        $videoId = 'b6d456f4119144db9844d771c04df7e3';
+        $obj = new AliVod();
+        print_r($obj->getPlayInfo($videoId)) ;
+    }
+
+    public function getMysql(){
         $db = Di::getInstance()->get("MYSQL");
         $result = $db->where("id", 1)->getOne("video");
         return $this->writeJson(200, 'OK', $result);
