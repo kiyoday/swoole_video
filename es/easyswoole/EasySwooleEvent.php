@@ -3,11 +3,13 @@ namespace EasySwoole\EasySwoole;
 
 
 use App\lib\Redis\Redis;
+use App\staticApi;
 use EasySwoole\Component\Di;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
+use EasySwoole\EasySwoole\Crontab\Crontab;
 
 class EasySwooleEvent implements Event
 {
@@ -31,6 +33,9 @@ class EasySwooleEvent implements Event
             'charset' => 'utf8')
         );
         Di::getInstance()->set('REDIS',Redis::getInstance());
+
+        // 开始一个定时任务计划
+        Crontab::getInstance()->addTask(staticApi::class);
     }
 
     public static function onRequest(Request $request, Response $response): bool

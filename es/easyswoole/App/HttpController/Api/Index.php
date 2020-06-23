@@ -10,10 +10,14 @@ use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
 use App\Model\Video as videoModel;
 use EasySwoole\Http\Message\Status;
+use App\Lib\Cache\Video as videoCache;
 
 class Index extends BaseController
 {
-    public function lists(){
+    /**
+     *直接从mysql中读取
+     */
+    public function lists0(){
         //写入baseController作为公共处理
 //        $params = $this->request()->getRequestParam();
 //        $page = $params['page']??1;
@@ -28,7 +32,7 @@ class Index extends BaseController
                 ,'error',$e->getMessage());
         }
 
-        if (empty($data['lists'])){
+        if (!empty($data['lists'])){
             foreach ($data['lists'] as &$list) {
                 $list['create_time'] = date("Ymd H:i:s",$list['create_time']);
                 //tips: 转为合适时间格式 "%H:%M:%S"
@@ -36,7 +40,6 @@ class Index extends BaseController
             }
         }
         return $this->writeJson(Status::CODE_OK,'OK',$data);
-
     }
 
     public function getVideo(){
