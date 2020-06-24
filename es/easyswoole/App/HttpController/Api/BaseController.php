@@ -28,6 +28,19 @@ class BaseController extends controller
 
         $this->params = $params;
     }
+    //分页方法
+    public function getPagingData($count, $data){
+        $totalPage = ceil($count/$this->params['size']);
+
+        $data = $data??[];
+        return [
+            'total_page' => $totalPage,
+            'page_size' => $this->params['page'],
+            'count' => intval($count),
+            'lists' => $data,
+        ];
+    }
+    
     /**
      * 重写输出方法
      */
@@ -47,4 +60,5 @@ class BaseController extends controller
             return false;
         }
     }
+    
 }

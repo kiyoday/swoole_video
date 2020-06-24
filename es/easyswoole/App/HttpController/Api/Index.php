@@ -42,6 +42,26 @@ class Index extends BaseController
         return $this->writeJson(Status::CODE_OK,'OK',$data);
     }
 
+    public function lists(){
+        $catId = !empty($this->params['cat_id']) ? intval($this->params['cat_id']) : 0;
+        $videoFile = EASYSWOOLE_ROOT."/webroot/video/json/{$catId}.json";
+        $videoData = is_file($videoFile)?json_decode(file_get_contents($videoFile)) :[];
+//        try {
+//            $videoData = (new videoCache())->getCache($catId);
+//        }catch(\Exception $e) {
+//            return $this->writeJson(Status::CODE_BAD_REQUEST , "请求失败");
+//        }
+
+        $count = count($videoData);
+        //切割分页
+        $videoData = array_splice($videoData
+            , $this->params['from']
+            , $this->params['size']);
+
+        return $this->writeJson(Status::CODE_OK,'OK'
+            ,$this->getPagingData($count,$videoData));
+    }
+
     public function getVideo(){
         $videoId = 'b6d456f4119144db9844d771c04df7e3';
         $obj = new AliVod();
