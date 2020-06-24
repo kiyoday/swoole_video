@@ -4,9 +4,11 @@
 namespace App\HttpController\Api;
 
 
+use EasySwoole\Component\Di;
 use EasySwoole\EasySwoole\Config;
 use App\Model\Video as VideoModel;
 use EasySwoole\EasySwoole\Logger;
+use EasySwoole\EasySwoole\Task\TaskManager;
 use EasySwoole\Http\Message\Status;
 use EasySwoole\Validate\Validate;
 
@@ -33,8 +35,30 @@ class Video extends BaseController
         }
         $video['video_duration'] = gmstrftime("%H:%M:%S", $video['video_duration']);
 
+        // 播放数统计逻辑
+        // 投放task异步任务
+        $task = TaskManager::getInstance();
+        $task->async(function() use($id) {
+            // 逻辑
+            //sleep(10);
+            // redis
+
+            //总记录
+            Di::getInstance()->get("REDIS")->zincrby(config::getInstance()->getConf("REDIS.video_play_key"), 1, $id);
+
+            // TODO 按天记录 Redis Zunionstore 命令
+        });
 
         return $this->writeJson(200, 'OK', $video);
+    }
+
+    /** 获取排行榜信息 日 周 月 总排行
+     * @throws \Throwable
+     */
+    public function rank(){
+        $result = Di::getInstance()->get("REDIS")
+            ->zRevRange(config::getInstance()->getConf("REDIS.video_play_key"),0,-1,true);
+        return $this->writeJson(200, 'OK', $result);
     }
 
 
