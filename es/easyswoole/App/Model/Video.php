@@ -10,7 +10,8 @@ class Video extends BaseModel
 {
     public $tableName = "video";
 
-    /** 通过条件获取video数据
+
+    /** 通过条件获取video数据 列表分页
      * @param array $condition
      * @param int $page
      * @param int $size

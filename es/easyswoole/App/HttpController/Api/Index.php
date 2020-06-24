@@ -43,6 +43,9 @@ class Index extends BaseController
         return $this->writeJson(Status::CODE_OK,'OK',$data);
     }
 
+    /** 方案二 静态缓存读取首页列表
+     * @return bool
+     */
     public function lists(){
         $catId = !empty($this->params['cat_id']) ? intval($this->params['cat_id']) : 0;
 

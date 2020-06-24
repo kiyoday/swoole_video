@@ -18,11 +18,32 @@ class BaseModel
         }
     }
 
+    /** 插入一条数据
+     * @param $data
+     * @return bool
+     * @throws \Exception
+     */
     public function add($data){
         if(empty($data) || !is_array($data)){
             return false;
         }
 
         return $this->db->insert($this->tableName,$data);
+    }
+
+    /** 通过id获得一条数据
+     * @param $id
+     * @return array|\MysqliDb|string
+     * @throws \Exception
+     */
+    public function getById($id) {
+        $id = intval($id);
+        if(empty($id)) {
+            return [];
+        }
+
+        $this->db->where ("id", $id);
+        $result = $this->db->getOne($this->tableName);
+        return $result ?? [];
     }
 }

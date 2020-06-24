@@ -49,14 +49,23 @@ class EasySwooleEvent implements Event
 //        });
         $videoCacheObj = new VideoCache();
 
+        //TODO 数据落地 数据恢复
         $register->add(EventRegister::onWorkerStart, function (
             $server , $workerId) use ($videoCacheObj) {
             if($workerId==0){
-                Timer::getInstance()->loop(10 * 1000, function() use($videoCacheObj, $workerId) {
+            $videoCacheObj->setIndexVideo();
+            }
+         });
+
+        $register->add(EventRegister::onWorkerStart, function (
+            $server , $workerId) use ($videoCacheObj) {
+            if($workerId==0){
+                Timer::getInstance()->loop(60 * 1000, function() use($videoCacheObj, $workerId) {
                     $videoCacheObj->setIndexVideo();
                 });
             }
-         });}
+         });
+    }
 
     public static function onRequest(Request $request, Response $response): bool
     {

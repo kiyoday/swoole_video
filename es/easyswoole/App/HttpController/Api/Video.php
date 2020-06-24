@@ -12,6 +12,36 @@ use EasySwoole\Validate\Validate;
 
 class Video extends BaseController
 {
+    /**视频详情页
+     * @return bool|void
+     */
+     public function index() {
+        $id = intval($this->params['id']);
+        if(empty($id)) {
+            return $this->writeJson(Status::CODE_BAD_REQUEST, "请求不合法");
+        }
+
+        // 获取视频的基本信息
+        try {
+            $video = (new VideoModel())->getById($id);
+        }catch(\Exception $e) {
+            // 记录日志 $e->getMessage()
+            return $this->writeJson(Status::CODE_BAD_REQUEST, "请求不合法");
+        }
+        if(!$video || $video['status'] != Config::getInstance()->getconf('STATUS.normal')) {
+            return $this->writeJson(Status::CODE_BAD_REQUEST, "该视频不存在");
+        }
+        $video['video_duration'] = gmstrftime("%H:%M:%S", $video['video_duration']);
+
+
+        return $this->writeJson(200, 'OK', $video);
+    }
+
+
+    /**
+     * 上传视频接口
+     * @return bool
+     */
     public function add(){
         $params = $this->request()->getRequestParam();
         $status = Config::getInstance()->getConf("STATUS");
