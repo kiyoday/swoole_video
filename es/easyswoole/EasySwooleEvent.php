@@ -1,10 +1,11 @@
 <?php
 namespace EasySwoole\EasySwoole;
 
-
+use App\Lib\Cache\Video as VideoCache;
 use App\lib\Redis\Redis;
 use App\staticApi;
 use EasySwoole\Component\Di;
+use EasySwoole\Component\Timer;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
@@ -35,8 +36,22 @@ class EasySwooleEvent implements Event
         Di::getInstance()->set('REDIS',Redis::getInstance());
 
         // 开始一个定时任务计划
-        Crontab::getInstance()->addTask(staticApi::class);
-    }
+//        Crontab::getInstance()->addTask(staticApi::class);
+
+        // 每隔 2 秒执行一次
+//        Timer::getInstance()->loop(2 * 1000, function () {
+//            echo "this timer runs at intervals of 2 seconds\n";
+//        });
+        $videoCacheObj = new VideoCache();
+
+        $register->add(EventRegister::onWorkerStart, function (
+            $server , $workerId) use ($videoCacheObj) {
+            if($workerId==0){
+                Timer::getInstance()->loop(2 * 1000, function() use($videoCacheObj, $workerId) {
+                    $videoCacheObj->setIndexVideo();
+                });
+            }
+         });}
 
     public static function onRequest(Request $request, Response $response): bool
     {
