@@ -11,6 +11,7 @@ use EasySwoole\Http\AbstractInterface\Controller;
 use App\Model\Video as videoModel;
 use EasySwoole\Http\Message\Status;
 use App\Lib\Cache\Video as videoCache;
+use EasySwoole\FastCache\Cache;
 
 class Index extends BaseController
 {
@@ -44,13 +45,12 @@ class Index extends BaseController
 
     public function lists(){
         $catId = !empty($this->params['cat_id']) ? intval($this->params['cat_id']) : 0;
-        $videoFile = EASYSWOOLE_ROOT."/webroot/video/json/{$catId}.json";
-        $videoData = is_file($videoFile)?json_decode(file_get_contents($videoFile)) :[];
-//        try {
-//            $videoData = (new videoCache())->getCache($catId);
-//        }catch(\Exception $e) {
-//            return $this->writeJson(Status::CODE_BAD_REQUEST , "请求失败");
-//        }
+
+        try {
+            $videoData = (new videoCache())->getCache($catId);
+        }catch(\Exception $e) {
+            return $this->writeJson(Status::CODE_BAD_REQUEST , "请求失败");
+        }
 
         $count = count($videoData);
         //切割分页

@@ -8,6 +8,7 @@ use EasySwoole\Component\Di;
 use EasySwoole\Component\Timer;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
+use EasySwoole\FastCache\Cache;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
 use EasySwoole\EasySwoole\Crontab\Crontab;
@@ -24,6 +25,10 @@ class EasySwooleEvent implements Event
     public static function mainServerCreate(EventRegister $register)
     {
         // TODO: Implement mainServerCreate() method.
+
+        //注册缓存事件
+        Cache::getInstance()->setTempDir(EASYSWOOLE_TEMP_DIR)->attachToServer(ServerManager::getInstance()->getSwooleServer());
+        //mysql单例模式
         Di::getInstance()->set('MYSQL',\MysqliDb::class,Array
         	(
             'host' => 'db',
@@ -47,7 +52,7 @@ class EasySwooleEvent implements Event
         $register->add(EventRegister::onWorkerStart, function (
             $server , $workerId) use ($videoCacheObj) {
             if($workerId==0){
-                Timer::getInstance()->loop(2 * 1000, function() use($videoCacheObj, $workerId) {
+                Timer::getInstance()->loop(10 * 1000, function() use($videoCacheObj, $workerId) {
                     $videoCacheObj->setIndexVideo();
                 });
             }
