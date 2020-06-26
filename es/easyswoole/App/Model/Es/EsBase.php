@@ -7,15 +7,13 @@ class EsBase {
 		$this->esClient = Di::getInstance()->get("ES");
 	}
 
-	/**
-	 * searchByName
-	 * @auth   singwa
-	 * @param  [string] $name [description]
-	 * @param  [int] $from [description]
-	 * @param  [int] $size [description]
-	 * @param  string $type [description]
-	 * @return [type]       [description]
-	 */
+    /** 搜索
+     * @param $name
+     * @param int $from
+     * @param int $size
+     * @param string $type
+     * @return array
+     */
 	public function searchByName($name, $from =0, $size = 10, $type = "match") {
 		$name = trim($name);
 		if(empty($name)) {

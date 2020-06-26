@@ -28,11 +28,20 @@ class BaseController extends controller
 
         $this->params = $params;
     }
-    //分页方法
-    public function getPagingData($count, $data){
+
+    /**
+     * @param $count [数据总数]
+     * @param $data [数据]
+     * @param $isSplice [是否需要分页]
+     * @return array
+     */
+    public function getPagingData($count, $data, bool $isSplice){
         $totalPage = ceil($count/$this->params['size']);
 
         $data = $data??[];
+        if($isSplice) {
+            $data = array_splice($data, $this->params['from'], $this->params['size']);
+        }
         return [
             'total_page' => $totalPage,
             'page_size' => $this->params['page'],
