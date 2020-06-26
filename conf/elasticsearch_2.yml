@@ -1,0 +1,30 @@
+cluster.name: es-cluster #集群名
+network.host: 0.0.0.0 
+node.name: es02
+node.master: true
+node.data: true
+http.port: 9200
+#可省略不写，默认3000，只要docker-compose.yml文件中有端口映射到该容器的3000就行
+#transport.tcp.port: 9300
+ 
+#集群最小的主节点数
+discovery.zen.minimum_master_nodes: 1
+ 
+#当最少几个节点回复之后，集群就正常工作
+gateway.recover_after_nodes: 1
+#head所需要使用的，否则head连接不了集群
+http.cors.enabled: true 
+http.cors.allow-origin: "*"
+ 
+#集群初始化时指定的主节点
+cluster.initial_master_nodes: ["es01", "es02"]
+ 
+#discovery.zen.ping.unicast.hosts属性已过时，用discovery.seed_hosts代替，且使用9300等集群通信端口
+discovery.seed_hosts: ["localhost:9300","localhost:9301"]
+#discovery.zen.ping.unicast.hosts: ["192.168.20.101:9300","192.168.20.101:9301"]
+ 
+bootstrap.memory_lock: true
+bootstrap.system_call_filter: false
+ 
+#指定一下容器中logs的位置，以便docker-compose可以正确挂载logs地址
+path.logs: /usr/share/elasticsearch/logs

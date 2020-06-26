@@ -1,0 +1,31 @@
+#xpack.ml.enabled: false
+http.host: 0.0.0.0
+http.port: 9200
+transport.tcp.port: 9300
+
+#memory
+#bootstrap.memory_lock: false
+
+#bootstrap.system_call_filter: false
+
+# Uncomment the following lines for a production cluster deployment
+#transport.host: 0.0.0.0
+#discovery.zen.minimum_master_nodes: 1
+###################### 使用head等插件监控集群信息，需要打开以下配置项 ###########
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-credentials: true
+
+
+# 集群名 集群名相同的节点会自动 组成集群
+
+cluster.name: es00
+
+# 节点名称同理,可自动生成也可手动配置.
+#network.publish_host: es01
+node.name: es01
+node.master: true
+
+#discovery.zen.minimum_master_nodes: 1
+
+#discovery.zen.ping.unicast.hosts: ["http://localhost:9300","http://localhost:9301","http://localhost:9302"]

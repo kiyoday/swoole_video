@@ -62,6 +62,24 @@ class Video extends BaseController
     }
 
 
+    /**TODO 点赞计数
+     * @return bool
+     * @throws \Throwable
+     */
+    public function love() {
+        $videoId = intval($this->params['videoId']);
+        if(empty($videoId)) {
+            return $this->writeJson(Status::CODE_BAD_REQUEST, "参数不合法");
+        }
+        // 跟进这个视频id查询是否存在该视频  untodo
+        //
+        //
+        $result = Di::getInstance()->get("REDIS")
+            ->zincrby(config::getInstance()->getConf("REDIS.video_play_key"), 1, $videoId);
+        return $this->writeJson(200, 'OK', $result);
+    }
+
+
     /**
      * 上传视频接口
      * @return bool

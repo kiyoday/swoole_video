@@ -1,11 +1,6 @@
 version: '3'
 
-networks:
-  backend:
-    driver: bridge
-
 services:
-
   es:
     build:
       context: ./
@@ -46,9 +41,9 @@ services:
     depends_on:
       - es
     ports:
-        - 8080:80
+      - 8080:80
     networks:
-        - backend
+      - backend
     volumes:
       - ./es/easyswoole:/easyswoole:rw
       - ./conf/conf.d:/etc/nginx/conf.d:rw
@@ -60,10 +55,29 @@ services:
       dockerfile: NodeDockerfile
     restart: always
     ports:
-        - 8089:8080
+      - 8089:8080
+      - 9100:9100
     networks:
       - backend
     volumes:
       - ./es/easyswoole:/easyswoole:rw
-      - ./front:/front:rw
+      - ./front/node:/front:rw
+      - ./front/elasticsearch-head:/elasticsearch-head:rw
     tty: true
+
+  es01:
+    image: elasticsearch:latest
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - backend
+    tty: true
+    volumes:
+      - /db/elasticsearch/:/usr/share/elasticsearch/data
+      - ./conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
+
+networks:
+  backend:
+    driver: bridge
+
