@@ -7,6 +7,7 @@ namespace App\HttpController;
 use App\Lib\AliyunSdk\AliVod;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
+use Elasticsearch\ClientBuilder;
 
 class Index extends Controller
 {
@@ -19,6 +20,26 @@ class Index extends Controller
             $file = EASYSWOOLE_ROOT.'/src/Resource/Http/welcome.html';
         }
         $this->response()->write(file_get_contents($file));
+    }
+
+    public function es()
+    {
+        $params = [
+            "index" => "es",
+            "type" => "video",
+            'body' => [
+                'query' => [
+                    'match' => [
+                        'name' => '名字'
+                    ],
+                ],
+            ],
+        ];
+        $client = ClientBuilder::create()
+            ->setHosts(["es01"])->build();
+
+        $result = $client->search($params);
+        $this->response()->write(json_encode($result));
     }
 
     function test()

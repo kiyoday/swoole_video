@@ -80,6 +80,6 @@ class Redis
     {
         // TODO: Implement __call() method.
         // ... 为可变个数参数
-        $this->redis->$name(...$arguments);
+        return $this->redis->$name(...$arguments);
     }
 }

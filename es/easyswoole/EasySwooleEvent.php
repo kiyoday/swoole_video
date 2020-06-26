@@ -2,6 +2,7 @@
 namespace EasySwoole\EasySwoole;
 
 use App\Lib\Cache\Video as VideoCache;
+use App\Lib\Es\EsClient;
 use App\lib\Redis\Redis;
 use App\staticApi;
 use EasySwoole\Component\Di;
@@ -39,6 +40,7 @@ class EasySwooleEvent implements Event
             'charset' => 'utf8')
         );
         Di::getInstance()->set('REDIS',Redis::getInstance());
+        Di::getInstance()->set('ES',EsClient::getInstance());
 
         // 开始一个定时任务计划
 //        Crontab::getInstance()->addTask(staticApi::class);

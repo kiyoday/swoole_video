@@ -124,4 +124,25 @@ class Index extends BaseController
         $result = $obj->upload_local_file($uploadAddress, $videoFile);
         print_r($result);
     }
+
+    public function getEs(){
+        $params = [
+            "index" => "es",
+            "type" => "video",
+            'body' => [
+                'query' => [
+                    'match' => [
+                        'name' => '名字'
+                    ],
+                ],
+            ],
+        ];
+        $client = Di::getInstance()->get("ES");
+
+
+        $result = $client->search($params);
+        $this->response()->write(json_encode($result));
+//        $result = $es->search($params);
+//        $this->writeJson(200, 'OK', $result);
+    }
 }
