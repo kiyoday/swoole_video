@@ -2,8 +2,8 @@
 namespace EasySwoole\EasySwoole;
 
 use App\Lib\Cache\Video as VideoCache;
-use App\Lib\Es\EsClient;
-use App\lib\Redis\Redis;
+use App\Model\Es\EsClient;
+use App\Model\Redis\Redis;
 use App\staticApi;
 use EasySwoole\Component\Di;
 use EasySwoole\Component\Timer;

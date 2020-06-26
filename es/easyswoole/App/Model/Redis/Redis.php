@@ -1,5 +1,5 @@
 <?php
-namespace App\Lib\Redis;
+namespace App\Model\Redis;
 use EasySwoole\Component\Singleton;
 use EasySwoole\EasySwoole\Config;
 use EasySwoole\Redis\Config\RedisConfig;

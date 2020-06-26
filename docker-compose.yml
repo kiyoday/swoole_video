@@ -74,7 +74,7 @@ services:
       - backend
     tty: true
     volumes:
-      - /db/elasticsearch/:/usr/share/elasticsearch/data
+      - ./db/elasticsearch/:/usr/share/elasticsearch/data
       - ./conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
 
 networks:

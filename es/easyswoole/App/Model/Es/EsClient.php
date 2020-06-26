@@ -1,5 +1,5 @@
 <?php
-namespace App\Lib\Es;
+namespace App\Model\Es;
 
 use EasySwoole\Component\Singleton;
 use EasySwoole\EasySwoole\Config;
@@ -23,13 +23,6 @@ class EsClient
             throw new \Exception('elasticsearch 连接失败');
         }
     }
-
-//    public function search($params){
-//        if(empty($params)){
-//            return false;
-//        }
-//        return $this->esClient->search($params);
-//    }
 
     public function __call($name, $arguments)
     {

@@ -6,6 +6,7 @@ namespace App\HttpController\Api;
 
 use App\Lib\AliyunSdk\AliVod;
 use App\lib\Redis\Redis;
+use App\Model\Es\EsVideo;
 use EasySwoole\Component\Di;
 use EasySwoole\Http\AbstractInterface\Controller;
 use App\Model\Video as videoModel;
@@ -144,5 +145,10 @@ class Index extends BaseController
         $this->response()->write(json_encode($result));
 //        $result = $es->search($params);
 //        $this->writeJson(200, 'OK', $result);
+    }
+
+    public function getEs2(){
+        $result = (new EsVideo())->searchByName($this->params['name']);
+        return $this->writeJson(200, "OK", $result);
     }
 }
